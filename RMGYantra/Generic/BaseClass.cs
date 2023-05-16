@@ -40,14 +40,15 @@ namespace RMGYantra.Generic
             driver = new ChromeDriver();
             //var url=TestContext.Properties["URL"].ToString();
             //driver.Url =url; 
-            driver.Url = "http://localhost:8084/";
+            ExcelUtility eu=new ExcelUtility();
+            driver.Url = eu.FetchSingleDataExcel("USERCREDENTIAL",1,0);
             webDriverUtility.Maximize(driver);
             webDriverUtility.ImplicitWait(driver);                  
         }
         [TestCleanup]
         public void Cleanup() 
         {
-            test.Log(test.Status);
+            //test.Log(test.Status);
             var res = test.Status;
             if (res.Equals(Status.Fail))
             {
@@ -62,7 +63,7 @@ namespace RMGYantra.Generic
             {
                 test.Pass("Test Passed");
                 test.Log(Status.Pass, "--->Test Passed");
-                test.Log(test.Status);
+               // test.Log(test.Status);
                 Console.WriteLine(test.Status);
                 Console.WriteLine("Test Passed");
             }

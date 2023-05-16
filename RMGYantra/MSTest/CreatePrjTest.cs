@@ -12,7 +12,7 @@ namespace RMGYantra.MSTest
     public class CreatePrjTest:BaseClass
     {
         [TestMethod]
-        [Priority(2)]
+        //[Priority(2)]
         public void CreateProject()
         {
             test = report.CreateTest(TestContext.TestName);

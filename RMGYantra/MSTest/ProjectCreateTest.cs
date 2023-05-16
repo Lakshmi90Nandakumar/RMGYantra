@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace RMGYantra.MSTest
 {
     [TestClass]
-    [Priority(1)]
+   // [Priority(1)]
     public class ProjectCreateTest:BaseClass
     {
         [TestMethod]

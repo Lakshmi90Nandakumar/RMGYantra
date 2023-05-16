@@ -14,9 +14,9 @@ namespace RMGYantra.Generic
         public static Worksheet sh { get; set; }
 
         //generic method to get rowcount from sheet
-        public static int Method1(string sheetName)
+        public static int MethodLoad(string sheetName)
         {
-            string projdata = "C:\\Users\\LENOVO\\source\\repos\\VTigerAutomation\\VTigerAutomation\\Resources\\TestDataLogin.xlsx";
+            string projdata = IPathConstants.excelPath;
             Spreadsheet sheet = new Spreadsheet();
             sheet.LoadFromFile(projdata);//loading the excel
             int rowcount = sheet.Workbook.Worksheets.ByName(sheetName).UsedRangeRowMax;//getting max row number
@@ -27,9 +27,9 @@ namespace RMGYantra.Generic
         }
 
         //reading single data from excel
-        public string FetchingleDataExcel(string sheetName, int row, int col)
+        public string FetchSingleDataExcel(string sheetName, int row, int col)
         {
-            string projdata = "C:\\Users\\LENOVO\\source\\repos\\BankingProjectPrac\\AutomationProject\\Resources\\demodata.xlsx";
+            string projdata = IPathConstants.excelPath;
             sheet = new Spreadsheet();
             sheet.LoadFromFile(projdata);//loading the excel
             //getting single data from excel sheet
@@ -39,7 +39,7 @@ namespace RMGYantra.Generic
         //getting multiple data from excel
         public static IEnumerable<Object[]> MultipleData()
         {
-            string projdata = "C:\\Users\\LENOVO\\source\\repos\\VTigerAutomation\\VTigerAutomation\\Resources\\TestDataLogin.xlsx";
+            string projdata = IPathConstants.excelPath;
             Spreadsheet sheet = new Spreadsheet();
             sheet.LoadFromFile(projdata);//loading the excel
             int rowcount = sheet.Workbook.Worksheets.ByName("Sheet1").UsedRangeRowMax;

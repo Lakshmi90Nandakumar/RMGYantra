@@ -29,6 +29,7 @@ namespace RMGYantra.MSTest
             {
                 Assert.IsTrue(address.Contains(exp));
                 test.Pass("test Passed");
+                test.Log(AventStack.ExtentReports.Status.Info, "Succefully Navigated to Projects page");
             }
             catch (Exception ex) 
             {

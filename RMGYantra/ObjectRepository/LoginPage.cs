@@ -21,16 +21,20 @@ namespace RMGYantra.ObjectRepository
         [FindsBy(How=How.XPath,Using = "//button[@type='submit']")]
         public IWebElement loginBtn;
 
+        ExcelUtility excelUtility=new ExcelUtility();
+
         public LoginPage(IWebDriver driver)
         {
             PageFactory.InitElements(driver, this);
         }
         public void Login() 
         {
-           // var user = TestContext.Properties["user"].ToString();
+            // var user = TestContext.Properties["user"].ToString();
             //var password = TestContext.Properties["password"].ToString();
-            string user = "rmgyantra";
-            string password = "rmgy@9999";
+            //  string user = "rmgyantra";
+            //string password = "rmgy@9999";
+            string user = excelUtility.FetchSingleDataExcel("USERCREDENTIAL", 1, 1);
+            string password = excelUtility.FetchSingleDataExcel("USERCREDENTIAL", 1, 2);
             usernameTxt.SendKeys(user);
             passwordTxt.SendKeys(password);
             loginBtn.Click();

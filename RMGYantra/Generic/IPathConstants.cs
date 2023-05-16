@@ -8,6 +8,6 @@ namespace RMGYantra.Generic
 {
     public interface IPathConstants
     {
-        public const  string excelPath= "C:\\Users\\LENOVO\\source\\repos\\RMGYantra\\RMGYantra\\Resources\\Data.xlsx;
+        public static string excelPath= "C:\\Users\\LENOVO\\source\\repos\\RMGYantra\\RMGYantra\\Resources\\Data.xlsx";
     }
 }

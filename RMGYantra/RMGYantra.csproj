@@ -29,7 +29,6 @@
   <ItemGroup>
     <Folder Include="Generic\Reports\" />
     <Folder Include="Generic\ScreenShot\" />
-    <Folder Include="Resources\" />
     <Folder Include="POCO\" />
   </ItemGroup>
 

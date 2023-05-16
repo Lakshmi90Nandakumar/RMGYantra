@@ -34,21 +34,32 @@ namespace RMGYantra.ObjectRepository
         public void CreateProject()
         {
             projectNameTxt.SendKeys("HouseRent");
-            createdByTxt.SendKeys("Lakshmi");
+            createdByTxt.SendKeys("Raja");
+            Thread.Sleep(2000);
+            WebDriverUtility wdu = new WebDriverUtility();
+            wdu.Select(driver, statusDD, "Created");
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("document.getElementsByName('teamSize').value='5';");
             Thread.Sleep(2000);
-            /* var stus=driver.FindElement(By.XPath("//label[text()='Project Status ']/parent::div/descendant::select"));
-             Console.WriteLine(stus.TagName);
-             SelectElement s=new SelectElement(stus);
-             s.SelectByText("Created");*/
-            WebDriverUtility wdu = new WebDriverUtility();
-            wdu.Select(driver, statusDD, "Created");
-
-            Thread.Sleep(2000);
             submitBtn.Click();
-            
+            test.Info("Clicked Create Project Link");
+            test.Info("Project details has been added");
+
         }
-        
+        public static IEnumerable<object[]> Data()
+        {
+            int rowcount = ExcelUtility.MethodLoad("PROJECTDATA");
+            for (int i = 1; i <= rowcount; i++)
+            {
+                yield return new Object[]
+                {
+                  ExcelUtility.sh.Cell(i,0).ToString(),
+                  ExcelUtility.sh.Cell(i,1).ToString(),
+                };
+            }
+
+            yield return new object[] { }
+        }
+
     }
 }
