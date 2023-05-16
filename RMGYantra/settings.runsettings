@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Runsettings>
+	<TestRunParameters>
+		<Parameter name="URL" value="http://localhost:8084/"/>
+		<Parameter name="user" value="rmgyantra"/>
+		<Parameter name="password" value="rmgy@9999"/>
+	</TestRunParameters>
+
+</Runsettings>
+
