@@ -13,7 +13,9 @@ namespace RMGYantra.MSTest
     {
         [TestMethod]
         //[Priority(2)]
-        public void CreateProject()
+        [DynamicData(nameof(Data), DynamicDataSourceType.Method)]
+
+        public void CreateProject(string createdBy, string projectname, string status, string teamsize)
         {
             test = report.CreateTest(TestContext.TestName);
 
@@ -29,8 +31,29 @@ namespace RMGYantra.MSTest
             Thread.Sleep(3000);
 
             CreateProjectPage createProject = new CreateProjectPage(driver);
-            createProject.CreateProject();
+            CSharpUtility cSharpUtility = new CSharpUtility();
+            int ran = cSharpUtility.ran();
+
+            createProject.CreateProject(createdBy,projectname+ran,status,teamsize);
             Thread.Sleep(2000);
+            test.Info("Clicked Create Project Link");
+            test.Info("Project details has been added");
+
+        }
+        public static IEnumerable<object[]> Data()
+        {
+            int rowcount = ExcelUtility.MethodLoad("PROJECTDATA");
+            for (int i = 1; i <= rowcount; i++)
+            {
+                yield return new Object[]
+                {
+                  ExcelUtility.sh.Cell(i,0).ToString(),
+                  ExcelUtility.sh.Cell(i,1).ToString(),
+                  ExcelUtility.sh.Cell(i,2).ToString(),
+                  ExcelUtility.sh.Cell(i,3).ToString()
+                };
+            }
+
         }
     }
 }

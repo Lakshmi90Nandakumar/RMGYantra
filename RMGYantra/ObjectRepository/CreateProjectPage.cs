@@ -30,36 +30,21 @@ namespace RMGYantra.ObjectRepository
         {
             PageFactory.InitElements(driver, this);
         }
-
-        public void CreateProject()
+        public void CreateProject(string createdBy, string projectname, string status, string teamsize)
         {
-            projectNameTxt.SendKeys("HouseRent");
-            createdByTxt.SendKeys("Raja");
+            projectNameTxt.SendKeys(projectname);
+            createdByTxt.SendKeys(createdBy);
             Thread.Sleep(2000);
             WebDriverUtility wdu = new WebDriverUtility();
-            wdu.Select(driver, statusDD, "Created");
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("document.getElementsByName('teamSize').value='5';");
+            wdu.Select(driver, statusDD, status);
+            int team=Convert.ToInt32(teamsize);
+ //          IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+//            js.ExecuteScript("document.getElementsByName('teamSize').value='"+team+"';");
             Thread.Sleep(2000);
             submitBtn.Click();
-            test.Info("Clicked Create Project Link");
-            test.Info("Project details has been added");
-
+            
         }
-        public static IEnumerable<object[]> Data()
-        {
-            int rowcount = ExcelUtility.MethodLoad("PROJECTDATA");
-            for (int i = 1; i <= rowcount; i++)
-            {
-                yield return new Object[]
-                {
-                  ExcelUtility.sh.Cell(i,0).ToString(),
-                  ExcelUtility.sh.Cell(i,1).ToString(),
-                };
-            }
-
-            yield return new object[] { }
-        }
+        
 
     }
 }
