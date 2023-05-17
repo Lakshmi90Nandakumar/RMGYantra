@@ -37,9 +37,10 @@ namespace RMGYantra.ObjectRepository
             Thread.Sleep(2000);
             WebDriverUtility wdu = new WebDriverUtility();
             wdu.Select(driver, statusDD, status);
-            int team=Convert.ToInt32(teamsize);
- //          IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-//            js.ExecuteScript("document.getElementsByName('teamSize').value='"+team+"';");
+           /* int team=Convert.ToInt32(teamsize);
+            string script = " return document.getElementsByName('teamSize')";
+            int value=team;
+            wdu.JavaScriptExecute(driver,script, value);*/
             Thread.Sleep(2000);
             submitBtn.Click();
             

@@ -20,6 +20,11 @@ namespace RMGYantra.Generic
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         }
+        public void ExplicitWait(IWebDriver driver,string path)
+        {
+           WebDriverWait wait=new WebDriverWait(driver,TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath(path)));
+        }
         public void Select(IWebDriver driver, IWebElement element, int index)
         {
             SelectElement selectElement = new SelectElement(element);
@@ -67,6 +72,13 @@ namespace RMGYantra.Generic
         public void AlertSendValue(IWebDriver driver, string text)
         {
             driver.SwitchTo().Alert().SendKeys(text);
+        }
+        public void JavaScriptExecute(IWebDriver driver,string script,int value)
+        {
+            IJavaScriptExecutor js=(IJavaScriptExecutor)driver;
+            var ele=js.ExecuteScript(script);
+            js.ExecuteScript("arguments[0].value='"+value+"'",(IWebElement)ele);
+
         }
         public string TakeScreenShot(IWebDriver driver, string testName)
         {

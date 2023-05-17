@@ -14,5 +14,10 @@ namespace RMGYantra.Generic
             int r=ran.Next();
             return r;
         }
+        public string SysDate()
+        {
+            DateTime dt= DateTime.Now;
+            return dt.ToString();
+        }
     }
 }

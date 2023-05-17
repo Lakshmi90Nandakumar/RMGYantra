@@ -1,4 +1,5 @@
-﻿using RMGYantra.Generic;
+﻿using OpenQA.Selenium;
+using RMGYantra.Generic;
 using RMGYantra.ObjectRepository;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace RMGYantra.MSTest
         public void CreateProject(string createdBy, string projectname, string status, string teamsize)
         {
             test = report.CreateTest(TestContext.TestName);
+            WebDriverUtility wdu = new WebDriverUtility();
 
             LoginPage page = new LoginPage(driver);
             page.Login();
@@ -27,17 +29,49 @@ namespace RMGYantra.MSTest
             welcomePage.ClickProject();
 
             ProjectPage projectPage = new ProjectPage(driver);
+
             projectPage.ClickCreateProject();
             Thread.Sleep(3000);
 
             CreateProjectPage createProject = new CreateProjectPage(driver);
             CSharpUtility cSharpUtility = new CSharpUtility();
             int ran = cSharpUtility.ran();
+            string prjName = projectname + ran;
+            createProject.CreateProject(createdBy,prjName,status,teamsize);
 
-            createProject.CreateProject(createdBy,projectname+ran,status,teamsize);
             Thread.Sleep(2000);
             test.Info("Clicked Create Project Link");
             test.Info("Project details has been added");
+            wdu.ExplicitWait(driver, "//tbody//tr//td[2]");
+            IReadOnlyCollection<IWebElement> projectNames=driver.FindElements(By.XPath("//tbody//tr//td[2]"));
+            try
+            {
+                bool flag = false;
+                foreach( IWebElement projectName in projectNames) 
+                {
+                    Thread.Sleep(1000);
+                    if (projectName.Equals(prjName))
+                    {
+                        Assert.AreEqual(prjName, projectName);
+                        Console.WriteLine("Success");
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    test.Pass("test executed Successfully");
+                    test.Info(prjName + " Created successfully");
+                }
+            }
+            catch (Exception ex) 
+            {
+                test.Fail(ex.ToString());
+                string screeShotPath=wdu.TakeScreenShot(driver,TestContext.TestName);
+                test.AddScreenCaptureFromPath(screenShotPath);
+                test.Info(prjName + " Not Created successfully");
+
+            }
 
         }
         public static IEnumerable<object[]> Data()
